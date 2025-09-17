@@ -1,20 +1,15 @@
 import Batsman from "./batsman";
+import Users from "./Components/Users";
 import "./App.css";
 import { Suspense } from "react";
-import Friend from "./friend";
-
-const fetchUsers = fetch("https://jsonplaceholder.typicode.com/users").then(
-  (res) => res.json()
-);
 
 function App() {
   return (
     <>
-      <h1>React</h1>
-      <Suspense fallback={<h3> Loading...</h3>}>
-        <Friend fetchUsers= {fetchUsers}></Friend>
-      </Suspense>
+      <h1>React Conceptual session</h1>
+      <Suspense fallback={<h3> Loading...</h3>}></Suspense>
       {/* <Batsman></Batsman> */}
+      <Users></Users>
     </>
   );
 }
