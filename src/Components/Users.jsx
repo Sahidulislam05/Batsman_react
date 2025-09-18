@@ -5,8 +5,8 @@
 // export default Users;
 
 const Users = ({ User, Kabul }) => {
-  console.log(User);
-  console.log(Kabul);
+  // console.log(User);
+  // console.log(Kabul);
   User = { Salary: 12000 };
   return (
     <>
