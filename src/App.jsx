@@ -1,3 +1,4 @@
+import { Suspense, useEffect, useState } from "react";
 import Fetch from "./Components/Fetch";
 import Batsman from "./batsman";
 import Users from "./Components/Users";
@@ -5,7 +6,6 @@ import User from "./Components/User";
 import Hook from "./Components/Hook";
 import Rendering from "./Components/Rendering";
 import "./App.css";
-import { Suspense } from "react";
 
 function App() {
   const person = {
@@ -36,14 +36,37 @@ function App() {
     // console.log(count);
   };
 
-  const fetchUrl = "https://fake-json-api.mock.beeceptor.com/users";
-  const userPromise = fetch(fetchUrl).then((res) => {
-    return res.json();
-  });
+  // const fetchUrl = "https://fake-json-api.mock.beeceptor.com/users";
+  // const userPromise = fetch(fetchUrl).then((res) => {
+  //   return res.json();
+  // });
   // console.log(userPromise);
+
+  // const userPromiseFunc = async () => {
+  //   const res = await fetch(fetchUrl);
+  //   return res.json();
+  // };
+  // const userPromise = userPromiseFunc()
+  // console.log(userPromise)
+  const [users, setUsers] = useState([]);
+  const [count, setCount] = useState(0);
+  const handleCount = () => {
+    setCount(count + 1);
+  };
+  console.log(users);
+
+  useEffect(() => {
+    fetch("https://fake-json-api.mock.beeceptor.com/users")
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
+  }, [count]);
+
   return (
     <>
       <h1>React Conceptual session</h1>
+      <h2> Data load: {count}</h2>
+      <button onClick={handleCount}> DataLoad</button>
+      <br />
       <button
         onClick={() => {
           handleLogin(5);
@@ -51,13 +74,16 @@ function App() {
       >
         Increase
       </button>
-      <Suspense fallback={<h3> Loading...</h3>}></Suspense>
+      {/* <Suspense fallback={<h3> Loading...</h3>}></Suspense> */}
       {/* <Batsman></Batsman> */}
       <Users User={person} Kabul={anotherPerson}></Users>
       <User students={students}></User>
       <Rendering user={user}></Rendering>
       <Hook></Hook>
-      <Fetch userPromise={userPromise}></Fetch>
+
+      {/* <Suspense fallback={<h3> Loading...</h3>}>
+        <Fetch userPromise={userPromise}></Fetch>
+      </Suspense> */}
     </>
   );
 }
